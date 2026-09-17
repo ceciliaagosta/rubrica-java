@@ -25,6 +25,10 @@ public class Rubrica {
         this.rubrica.remove(indice);
     }
 
+    public void eliminaPersona(Persona p) {
+        this.rubrica.remove(p);
+    }
+
     public void modificaPersona(int indice, Persona p) {
         this.rubrica.set(indice, p);
     }

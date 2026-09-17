@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Persona {
 
     private String nome;
@@ -54,5 +56,32 @@ public class Persona {
 
     public void setEta(int eta) {
         this.eta = eta;
+    }
+
+    // Funzioni ausiliarie
+
+    @Override 
+    public boolean equals(Object obj) {
+        if (this == obj) { return true; }
+        if (obj == null || getClass() != obj.getClass()) { return false; }
+
+        Persona altra = (Persona) obj;
+
+        return this.eta == altra.eta &&
+               this.nome.equals(altra.nome) &&
+               this.cognome.equals(altra.cognome) &&
+               this.indirizzo.equals(altra.indirizzo) &&
+               this.telefono.equals(altra.telefono);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+            this.nome,
+            this.cognome,
+            this.indirizzo,
+            this.telefono,
+            this.eta
+        );
     }
 }
