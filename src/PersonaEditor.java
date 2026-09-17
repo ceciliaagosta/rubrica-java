@@ -8,12 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
 public class PersonaEditor extends JFrame{
+    
+    private SaveFile saveFile;
 
-    private Rubrica rubrica;
-    private MainFrame frame;
-
-    private Persona p;
-    private int index;
     private boolean edit;
 
     private JTextField nomeField;
@@ -24,11 +21,7 @@ public class PersonaEditor extends JFrame{
     
     public PersonaEditor(Rubrica rubrica, MainFrame frame, Persona p, int index) {
 
-        this.rubrica = rubrica;
-        this.frame = frame;
-
-        this.p = p;
-        this.index = index;
+        this.saveFile = new SaveFile();
         this.edit = (p != null);
 
         setTitle("Editor");
@@ -92,6 +85,7 @@ public class PersonaEditor extends JFrame{
             if (edit) { rubrica.modificaPersona(index, persona); }
             else { rubrica.creaPersona(persona); }
 
+            saveFile.save(rubrica.getRubrica());
             frame.aggiornaTabella();
         
             dispose();

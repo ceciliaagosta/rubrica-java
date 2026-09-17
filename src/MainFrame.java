@@ -7,11 +7,14 @@ import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 
 public class MainFrame extends JFrame{
+
+    private SaveFile saveFile;
     
     private Rubrica rubrica;
     private JTable table;
 
     public MainFrame(Rubrica rubrica) {
+        this.saveFile = new SaveFile();
         this.rubrica = rubrica;
 
         setTitle("Rubrica");
@@ -59,6 +62,7 @@ public class MainFrame extends JFrame{
 
             if (risposta == JOptionPane.YES_OPTION) {
                 rubrica.eliminaPersona(selectedRow);
+                saveFile.save(rubrica.getRubrica());
                 aggiornaTabella();
             }
         });
