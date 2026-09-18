@@ -108,6 +108,11 @@ public class ProfiloFrame extends JFrame {
             return;
         }
 
+        if (contieneSeparatore()) {
+            JOptionPane.showMessageDialog(this, "Il carattere ';' non è consentito nei campi.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (!nuovaPassword.equals(confermaPassword)) {
             JOptionPane.showMessageDialog(this, "Le password non coincidono.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
@@ -164,5 +169,11 @@ public class ProfiloFrame extends JFrame {
         LoginFrame loginFrame = new LoginFrame(this.gestoreUtenti, this.saveUsers);
         loginFrame.setVisible(true);
         dispose();
+    }
+
+    private boolean contieneSeparatore() {
+        String password = new String(this.passwordField.getPassword());
+        return this.nomeField.getText().contains(";") ||
+               password.contains(";");
     }
 }

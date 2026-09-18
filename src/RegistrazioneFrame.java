@@ -86,6 +86,11 @@ public class RegistrazioneFrame extends JFrame {
             return;
         }
 
+        if (contieneSeparatore()) {
+            JOptionPane.showMessageDialog(this, "Il carattere ';' non è consentito nei campi.", "Errore", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (!this.gestoreUtenti.usernameDisponibile(nome)) {
             JOptionPane.showMessageDialog(this, "Il nome utente è già in uso.", "Errore", JOptionPane.ERROR_MESSAGE);
             return;
@@ -102,5 +107,11 @@ public class RegistrazioneFrame extends JFrame {
 
         JOptionPane.showMessageDialog(this, "Registrazione completata!");
         dispose();
+    }
+
+    private boolean contieneSeparatore() {
+        String password = new String(this.passwordField.getPassword());
+        return this.nomeField.getText().contains(";") ||
+               password.contains(";");
     }
 }

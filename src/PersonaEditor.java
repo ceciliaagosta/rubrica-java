@@ -95,25 +95,21 @@ public class PersonaEditor extends JFrame{
                 JOptionPane.ERROR_MESSAGE);
                 return;
             }
+
+            if (contieneSeparatore()) {
+                JOptionPane.showMessageDialog(this, "Il carattere ';' non è consentito nei campi.", "Errore", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             
             int eta;
             try {
                 eta = Integer.parseInt(etaField.getText());
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this,
-                "L'età deve essere un numero intero.",
-                "Errore",
-                JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "L'età deve essere un numero intero.", "Errore", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         
-            Persona persona = new Persona(
-                nome,
-                cognome,
-                indirizzo,
-                telefono,
-                eta
-            );
+            Persona persona = new Persona(nome, cognome, indirizzo, telefono, eta);
             
             if (edit) { this.rubrica.modificaPersona(index, persona); }
             else { this.rubrica.creaPersona(persona); }
@@ -145,5 +141,12 @@ public class PersonaEditor extends JFrame{
         this(rubrica, frame, null, -1, saveFile);
     }
 
+    // Funzioni ausiliarie
 
+    private boolean contieneSeparatore() {
+        return nomeField.getText().contains(";") ||
+               cognomeField.getText().contains(";") ||
+               indirizzoField.getText().contains(";") ||
+               telefonoField.getText().contains(";");
+    }
 }
