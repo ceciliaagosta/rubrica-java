@@ -3,13 +3,14 @@ import javax.swing.SwingUtilities;
 public class Main {
     public static void main(String[] args) {
 
-        SaveFile saveFile = new SaveFile();
-        Rubrica rubrica = new Rubrica(saveFile.load());
+        SaveUsers userFile = new SaveUsers();
 
-        SwingUtilities.invokeLater(() -> 
-            {MainFrame frame = new MainFrame(rubrica);
-            frame.setVisible(true);});
-
+        GestoreUtenti gestoreUtenti = new GestoreUtenti(userFile.load());
+    
+        SwingUtilities.invokeLater(() -> {
+            LoginFrame frame = new LoginFrame(gestoreUtenti, userFile);
+            frame.setVisible(true);
+        });
     }
 
 }

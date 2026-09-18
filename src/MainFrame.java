@@ -19,6 +19,9 @@ import java.awt.Font;
 public class MainFrame extends JFrame{
 
     private SaveFile saveFile;
+
+    private GestoreUtenti gestoreUtenti;
+    private SaveUsers userFile;
     
     private Rubrica rubrica;
     private JTable table;
@@ -29,11 +32,14 @@ public class MainFrame extends JFrame{
     private Color PANEL_COLOR = new Color(163, 197, 249);
     private Color TABLE_COLOR = new Color(249, 215, 163);
     private Color HEADER_COLOR = new Color(45, 113, 249);
+    private Color LOGOUT_COLOR = new Color(249, 181, 45);
 
-    public MainFrame(Rubrica rubrica) {
+    public MainFrame(Rubrica rubrica, SaveFile saveFile, GestoreUtenti gestoreUtenti, SaveUsers userFile) {
         
-        this.saveFile = new SaveFile();
+        this.saveFile = saveFile;
         this.rubrica = rubrica;
+        this.userFile = userFile;
+        this.gestoreUtenti = gestoreUtenti;
 
         setTitle("Rubrica");
         setSize(800, 600);
@@ -41,18 +47,24 @@ public class MainFrame extends JFrame{
         setLocationRelativeTo(null);
         getRootPane().setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        JButton nuovoButton= new JButton("Nuovo");
+        JButton nuovoButton = new JButton("Nuovo");
         nuovoButton.setPreferredSize(BUTTON_DIM);
 
-        JButton modificaButton= new JButton("Modifica");
+        JButton modificaButton = new JButton("Modifica");
         modificaButton.setPreferredSize(BUTTON_DIM);
 
-        JButton eliminaButton= new JButton("Elimina");
+        JButton eliminaButton = new JButton("Elimina");
         eliminaButton.setPreferredSize(BUTTON_DIM);
         eliminaButton.setBackground(ELIMINA_COLOR);
         eliminaButton.setForeground(ELIMINA_TEXT);
         eliminaButton.setOpaque(true);
         eliminaButton.setBorderPainted(false);
+
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.setPreferredSize(BUTTON_DIM);
+        logoutButton.setBackground(LOGOUT_COLOR);
+        logoutButton.setOpaque(true);
+        logoutButton.setBorderPainted(false);
 
         JToolBar buttonPanel = new JToolBar();
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
@@ -63,7 +75,7 @@ public class MainFrame extends JFrame{
 
         buttonPanel.add(nuovoButton);
         nuovoButton.addActionListener(e -> {
-            PersonaEditor editor = new PersonaEditor(this.rubrica, this);
+            PersonaEditor editor = new PersonaEditor(this.rubrica, this, this.saveFile);
             editor.setVisible(true);
         });
 
@@ -73,7 +85,7 @@ public class MainFrame extends JFrame{
 
             if (selectedRow != -1) {
                 Persona persona = this.rubrica.getRubrica().get(selectedRow);
-                PersonaEditor editor = new PersonaEditor(this.rubrica, this, persona, selectedRow);
+                PersonaEditor editor = new PersonaEditor(this.rubrica, this, persona, selectedRow, this.saveFile);
                 editor.setVisible(true);
             }
             else {
@@ -98,6 +110,13 @@ public class MainFrame extends JFrame{
                 this.saveFile.save(this.rubrica.getRubrica());
                 aggiornaTabella();
             }
+        });
+
+        buttonPanel.add(logoutButton);
+        logoutButton.addActionListener(e -> {
+            this.dispose();
+            LoginFrame loginFrame = new LoginFrame(this.gestoreUtenti, this.userFile);
+            loginFrame.setVisible(true);
         });
 
         add(buttonPanel, BorderLayout.NORTH);
@@ -141,7 +160,7 @@ public class MainFrame extends JFrame{
                     if (selectedRow != -1) {
                         Persona persona = rubrica.getRubrica().get(selectedRow);
 
-                        PersonaEditor editor = new PersonaEditor(rubrica, MainFrame.this, persona, selectedRow);
+                        PersonaEditor editor = new PersonaEditor(rubrica, MainFrame.this, persona, selectedRow, saveFile);
 
                         editor.setVisible(true);
                     }
@@ -156,11 +175,7 @@ public class MainFrame extends JFrame{
     // Funzioni ausiliarie
 
     public void aggiornaTabella() {
-        String[] colonne = {
-            "Nome",
-            "Cognome",
-            "Telefono"
-        };
+        String[] colonne = {"Nome", "Cognome", "Telefono"};
     
         String[][] contatti = new String[this.rubrica.getRubrica().size()][colonne.length];
     

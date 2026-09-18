@@ -13,3 +13,6 @@ informazioni.txt
 *.njsproj
 *.sln
 *.sw?
+bin/
+Rubrica.jar
+saves/

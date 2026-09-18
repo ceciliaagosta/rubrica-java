@@ -27,10 +27,10 @@ public class PersonaEditor extends JFrame{
     private Color SALVA_COLOR = new Color(60, 170, 80);
     private Color SALVA_TEXT = Color.WHITE;
     
-    public PersonaEditor(Rubrica rubrica, MainFrame frame, Persona p, int index) {
+    public PersonaEditor(Rubrica rubrica, MainFrame frame, Persona p, int index, SaveFile saveFile) {
 
         this.rubrica = rubrica;
-        this.saveFile = new SaveFile();
+        this.saveFile = saveFile;
         this.edit = (p != null);
 
         setTitle("Editor");
@@ -43,27 +43,27 @@ public class PersonaEditor extends JFrame{
         editorPanel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
 
         JLabel nomeLabel = new JLabel("Nome");
-        this.nomeField = new JTextField();
+        this.nomeField = new JTextField(100);
         editorPanel.add(nomeLabel);
         editorPanel.add(nomeField);
 
         JLabel cognomeLabel = new JLabel("Cognome");
-        this.cognomeField = new JTextField();
+        this.cognomeField = new JTextField(100);
         editorPanel.add(cognomeLabel);
         editorPanel.add(cognomeField);
 
         JLabel telefonoLabel = new JLabel("Telefono");
-        this.telefonoField = new JTextField();
+        this.telefonoField = new JTextField(100);
         editorPanel.add(telefonoLabel);
         editorPanel.add(telefonoField);
 
         JLabel indirizzoLabel = new JLabel("Indirizzo");
-        this.indirizzoField = new JTextField();
+        this.indirizzoField = new JTextField(100);
         editorPanel.add(indirizzoLabel);
         editorPanel.add(indirizzoField);
 
         JLabel etaLabel = new JLabel("Età");
-        this.etaField = new JTextField();
+        this.etaField = new JTextField(3);
         editorPanel.add(etaLabel);
         editorPanel.add(etaField);
 
@@ -141,8 +141,8 @@ public class PersonaEditor extends JFrame{
     }
 
 
-    public PersonaEditor(Rubrica rubrica, MainFrame frame) {
-        this(rubrica, frame, null, -1);
+    public PersonaEditor(Rubrica rubrica, MainFrame frame, SaveFile saveFile) {
+        this(rubrica, frame, null, -1, saveFile);
     }
 
 

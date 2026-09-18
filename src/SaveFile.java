@@ -12,10 +12,18 @@ public class SaveFile {
     // Costruttori
 
     public SaveFile() {
-        this.saveFile = new File("informazioni.txt");
+        File dir = new File("saves");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
+        this.saveFile = new File("saves/informazioni.txt");
     }
 
     public SaveFile(String filename) {
+        File dir = new File("saves");
+        if (!dir.exists()) {
+            dir.mkdir();
+        }
         this.saveFile = new File(filename);
     }
 
@@ -78,5 +86,23 @@ public class SaveFile {
         int eta = Integer.parseInt(fields[4]);
 
         return new Persona(nome, cognome, indirizzo, telefono, eta);
+    }
+
+    public boolean rinomina(String vecchioNome, String nuovoNome) {
+
+        File vecchioFile = new File("saves/" + vecchioNome + ".txt");
+        File nuovoFile = new File("saves/" + nuovoNome + ".txt");
+    
+        if (!vecchioFile.exists()) { return false;}
+        if (nuovoFile.exists()) { return false; }
+    
+        return vecchioFile.renameTo(nuovoFile);
+    }
+
+    public boolean elimina(String nome) {
+        
+        File file = new File("saves/" + nome + ".txt");
+        if (!file.exists()) { return false; }
+        return file.delete();
     }
 }

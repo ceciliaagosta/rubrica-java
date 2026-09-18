@@ -17,45 +17,25 @@ public class Persona {
         this.eta = eta;
     }
 
-    // Getter e Setter
+    // Getter
     public String getNome() {
         return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getCognome() {
         return this.cognome;
     }
 
-    public void setCognome(String cognome) {
-        this.cognome = cognome;
-    }
-
     public String getIndirizzo() {
         return this.indirizzo;
-    }
-
-    public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
     }
 
     public String getTelefono() {
         return this.telefono;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
     public int getEta() {
         return this.eta;
-    }
-
-    public void setEta(int eta) {
-        this.eta = eta;
     }
 
     // Funzioni ausiliarie
