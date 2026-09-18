@@ -118,7 +118,7 @@ public class PersonaEditor extends JFrame{
             if (edit) { this.rubrica.modificaPersona(index, persona); }
             else { this.rubrica.creaPersona(persona); }
 
-            saveFile.save(this.rubrica.getRubrica());
+            this.saveFile.save(this.rubrica.getRubrica());
             frame.aggiornaTabella();
         
             dispose();

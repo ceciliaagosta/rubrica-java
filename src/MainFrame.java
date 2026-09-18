@@ -22,6 +22,7 @@ public class MainFrame extends JFrame{
 
     private GestoreUtenti gestoreUtenti;
     private SaveUsers userFile;
+    private Utente utente;
     
     private Rubrica rubrica;
     private JTable table;
@@ -34,12 +35,14 @@ public class MainFrame extends JFrame{
     private Color HEADER_COLOR = new Color(45, 113, 249);
     private Color LOGOUT_COLOR = new Color(249, 181, 45);
 
-    public MainFrame(Rubrica rubrica, SaveFile saveFile, GestoreUtenti gestoreUtenti, SaveUsers userFile) {
+    public MainFrame(Rubrica rubrica, SaveFile saveFile, GestoreUtenti gestoreUtenti, SaveUsers userFile, Utente utente) {
         
         this.saveFile = saveFile;
         this.rubrica = rubrica;
         this.userFile = userFile;
         this.gestoreUtenti = gestoreUtenti;
+        this.utente = utente;
+
 
         setTitle("Rubrica");
         setSize(800, 600);
@@ -59,6 +62,9 @@ public class MainFrame extends JFrame{
         eliminaButton.setForeground(ELIMINA_TEXT);
         eliminaButton.setOpaque(true);
         eliminaButton.setBorderPainted(false);
+
+        JButton profiloButton = new JButton("Profilo Utente");
+        profiloButton.setPreferredSize(BUTTON_DIM);
 
         JButton logoutButton = new JButton("Logout");
         logoutButton.setPreferredSize(BUTTON_DIM);
@@ -110,6 +116,12 @@ public class MainFrame extends JFrame{
                 this.saveFile.save(this.rubrica.getRubrica());
                 aggiornaTabella();
             }
+        });
+
+        buttonPanel.add(profiloButton);
+        profiloButton.addActionListener(e -> {  
+            ProfiloFrame profiloFrame = new ProfiloFrame(this.gestoreUtenti, this.userFile, this.saveFile, this.utente, this);
+            profiloFrame.setVisible(true);
         });
 
         buttonPanel.add(logoutButton);
@@ -196,5 +208,13 @@ public class MainFrame extends JFrame{
         };
 
         this.table.setModel(model);
+    }
+
+    public void setSaveFile(String saveFile) {
+        this.saveFile = new SaveFile(saveFile);
+    }
+
+    public void setUtente(Utente utente) {
+        this.utente = utente;
     }
 }

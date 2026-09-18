@@ -29,8 +29,11 @@ public class GestoreUtenti {
         this.utenti.remove(u);
     }
 
-    public void modificaUtente(int indice, Utente u) {
-        this.utenti.set(indice, u);
+    public void modificaUtente(Utente vecchioUtente, Utente nuovoUtente) {
+        int indice = this.utenti.indexOf(vecchioUtente);
+        if (indice != -1) {
+            this.utenti.set(indice, nuovoUtente);
+        }
     }
 
     public Utente login(String nome, String password) {

@@ -79,7 +79,7 @@ public class LoginFrame extends JFrame {
         SaveFile saveFile = new SaveFile("saves/" + utente.getNome() + ".txt");
         Rubrica rubrica = new Rubrica(saveFile.load());
 
-        MainFrame frame = new MainFrame(rubrica, saveFile, gestoreUtenti, userFile);
+        MainFrame frame = new MainFrame(rubrica, saveFile, gestoreUtenti, userFile, utente);
         frame.setVisible(true);
 
         this.dispose();

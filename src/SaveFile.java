@@ -93,7 +93,7 @@ public class SaveFile {
         File vecchioFile = new File("saves/" + vecchioNome + ".txt");
         File nuovoFile = new File("saves/" + nuovoNome + ".txt");
     
-        if (!vecchioFile.exists()) { return false;}
+        if (!vecchioFile.exists()) { return true;}
         if (nuovoFile.exists()) { return false; }
     
         return vecchioFile.renameTo(nuovoFile);
@@ -102,7 +102,7 @@ public class SaveFile {
     public boolean elimina(String nome) {
         
         File file = new File("saves/" + nome + ".txt");
-        if (!file.exists()) { return false; }
+        if (!file.exists()) { return true; }
         return file.delete();
     }
 }
